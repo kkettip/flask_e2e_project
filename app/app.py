@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 import io
 import base64
 
+from datetime import datetime
+
+
 import warnings
 warnings.simplefilter("ignore", UserWarning)
 
@@ -22,8 +25,14 @@ def index():
     selected_county = request.form.get('county') or counties[0]
     
     img = create_plot(selected_county)
+
+    today = datetime.today().strftime('%Y-%m-%d')
     
-    return render_template("index.html", counties=counties, selected_county=selected_county, img=img)
+    return render_template("index.html", counties=counties, selected_county=selected_county, img=img, today=today)
+
+
+    
+    
 
 def create_plot(county):
     overall_avg = df_obesity['Data_Value'].mean()
