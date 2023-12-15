@@ -1,0 +1,94 @@
+{% extends "index.html" %} 
+
+{% block content %}
+
+<!DOCTYPE html>
+
+    
+<html>
+<section>
+<head>
+    <h1>Patients and Conditions</h1>
+</head>
+<body>
+    <h2 class="text-xl mb-2">Patients</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th class="px-4 py-2">patient_id</th>
+                <th class="px-4 py-2">first_name</th>
+                <th class="px-4 py-2">last_name</th>
+                <th class="px-4 py-2">date_of_birth</th>
+           
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in patients %}
+            <tr>
+                <td class="border px-4 py-2">{{ row.patient_id }}</td>
+                <td class="border px-4 py-2">{{ row.first_name }}</td>
+                <td class="border px-4 py-2">{{ row.last_name }}</td>
+                <td class="border px-4 py-2">{{ row.date_of_birth }}</td>
+               
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>
+
+<section>
+    <h2 class="text-xl mb-2">Conditions</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th class="px-4 py-2">condition_id</th>
+                <th class="px-4 py-2">condition_name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in conditions %}
+            <tr>
+                <td class="border px-4 py-2">{{ row.condition_id }}</td>
+                <td class="border px-4 py-2">{{ row.condition_name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>
+
+<section>
+    <h2 class="text-xl mb-2">Patient's Conditions</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th class="px-4 py-2">patient_condition_id</th>
+                <th class="px-4 py-2">patient_id</th>
+                <th class="px-4 py-2">condition_id</th>
+                <th class="px-4 py-2">intake_date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in patient_conditions %}
+            <tr>
+                <td class="border px-4 py-2">{{ row.patient_condition_id }}</td>
+                <td class="border px-4 py-2">{{ row.patient_id }}</td>
+                <td class="border px-4 py-2">{{ row.condition_id }}</td>
+                <td class="border px-4 py-2">{{ row.intake_date }}</td>
+           
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</section>
+</html>
+
+
+{% endblock %}
+
+
+
+
+
