@@ -11,7 +11,7 @@ from datetime import datetime
 import warnings
 warnings.simplefilter("ignore", UserWarning)
 
-
+from pandas import read_sql
 import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, inspect
