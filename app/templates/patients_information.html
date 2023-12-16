@@ -3,15 +3,43 @@
 {% block content %}
 
 <!DOCTYPE html>
-
-    
+   
 <html>
-<section>
+
 <head>
-    <h1>Patients and Conditions</h1>
+    <title>Flask Obesity App</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
 </head>
+
 <body>
-    <h2 class="text-xl mb-2">Patients</h2>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <div class="max-w-screen-md mx-auto bg-white p-4 shadow-md">
+        <div class="max-w-screen-md mx-auto bg-pink-500 p-4 shadow-md">
+    
+    
+    <div class="container mx-auto">
+        <h1 class="text-4xl font-bold text-center my-8">Patients' Information</h1>
+    </div>
+
+
+<section>
+
+    <div class="flex justify-center">
+        <div>
+
+
+
+<body>
+
+    <div class="container mx-auto">
+        <p class="text-lg text-center"> 
+
+
+
+    <h2 class="text-xl font-bold text-center mb-4">Patients</h2>
     <table border="1">
         <thead>
             <tr>
@@ -22,6 +50,9 @@
            
             </tr>
         </thead>
+
+        
+
         <tbody>
             {% for row in patients %}
             <tr>
@@ -35,31 +66,20 @@
         </tbody>
     </table>
 
-</section>
-
-<section>
-    <h2 class="text-xl mb-2">Conditions</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th class="px-4 py-2">condition_id</th>
-                <th class="px-4 py-2">condition_name</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in conditions %}
-            <tr>
-                <td class="border px-4 py-2">{{ row.condition_id }}</td>
-                <td class="border px-4 py-2">{{ row.condition_name }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    </div>
+</div>
 
 </section>
 
+
 <section>
-    <h2 class="text-xl mb-2">Patient's Conditions</h2>
+
+    <div class="flex justify-center">
+        <div>
+
+            <p></p>
+
+    <h2 class="text-xl font-bold text-center mb-4">Patient's Conditions</h2>
     <table border="1">
         <thead>
             <tr>
@@ -82,9 +102,49 @@
         </tbody>
     </table>
 </body>
+
+</div>
+</div>
 </section>
+
+
+<section>
+
+    
+    <div class="flex justify-center">
+        <div>
+
+    <h2 class="text-xl font-bold text-center mb-4">Conditions</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th class="px-4 py-2">condition_id</th>
+                <th class="px-4 py-2">condition_name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in conditions %}
+            <tr>
+                <td class="border px-4 py-2">{{ row.condition_id }}</td>
+                <td class="border px-4 py-2">{{ row.condition_name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+</div>
+
+</section>
+
+
 </html>
 
+
+</div>
+
+</div>
+</div>
 
 {% endblock %}
 

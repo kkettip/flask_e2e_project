@@ -105,6 +105,56 @@ def patients_information():
 
     return render_template('patients_information.html', patients=patients, conditions=conditions, patient_conditions=patient_conditions)
 
+
+@app.route('/conditions', methods=['GET', 'POST'])
+def conditions():
+    query_patients = "SELECT * FROM patients limit 10"
+    df_patients = read_sql(query_patients, db_engine)
+    patients = df_patients.to_dict(orient='records')
+   
+
+    query_conditions = "SELECT * FROM conditions limit 10"
+    df_conditions = read_sql(query_conditions, db_engine)
+    conditions = df_conditions.to_dict(orient='records')
+
+    query_patient_conditions = "SELECT * FROM patient_conditions limit 10"
+    df_patient_conditions= read_sql(query_patient_conditions, db_engine)
+    patient_conditions = df_patient_conditions.to_dict(orient='records')
+    
+
+
+    conditions = sorted(df_patient_conditions['condition_id'].unique())
+    selected_condition = request.form.get('condition') or condition_id[0]
+    
+    img2 = create_plot(selected_condition)
+
+    today = datetime.today().strftime('%Y-%m-%d')
+    
+    return render_template("conditions.html", conditions=conditions, selected_condition=selected_condition, img2=img2, today=today)
+
+
+
+    
+
+def create_condition_plot(condition):
+    overall_count = df_patient_conditions['condition_id'].count()
+    selected_condition_count = df_patient_conditions[df_patient_conditions['condition_id'] == condition]['condition_id'].count()
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.bar(['condition', 'count'], [selected_condition_count, overall_count], color=['lightcoral', 'dodgerblue'])
+    ax.axhline(selected_condition_count, color='gray', linestyle='dashed', alpha=0.7)
+    ax.set_ylabel('Conditions Count')
+    ax.set_ylim(0, 50)
+    ax.set_title('Conditions Prevelance')
+    
+    # Convert plot to PNG image
+    img2 = io.BytesIO()
+    plt.savefig(img2, format='png')
+    img2.seek(0)
+    
+    return base64.b64encode(img2.getvalue()).decode()
+
+
 if __name__ == '__main__':
     app.run(
         debug=True,

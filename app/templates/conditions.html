@@ -14,7 +14,7 @@
 
 
 <div class="container mx-auto">
-    <h1 class="text-4xl font-bold text-center my-8">Obesity Age-adjusted Prevalence in CT by County</h1>
+    <h1 class="text-4xl font-bold text-center my-8">Counts of Individuals with Condition</h1>
     <p class="text-lg text-center font-semibold leading-7 text-black-400 mb-4">Today's Date in Year-Month-Day: {{today}}</p>
 </div>
 
@@ -24,23 +24,23 @@
 <div class="container mx-auto">
 <p class="text-lg text-center"> 
 
-    <p class="text-base font-semibold leading-7 text-black-400 mb-4">Select a County to View Prevalence Levels: </p>
+    <p class="text-base font-semibold leading-7 text-black-400 mb-4">Select a Condition to View Prevalence Levels: </p>
 
 <div class="mb-4">
 
     <form method="post">
-        <select name="county" onchange="this.form.submit()">
-            {% for county in counties %}
-            <option value="{{ county }}" {% if county == selected_county %} selected {% endif %}>{{ county }}</option>
+        <select name="condition" onchange="this.form.submit()">
+            {% for condition in conditions %}
+            <option value="{{ conditions }}" {% if conditions == selected_condition %} selected {% endif %}>{{ conditions }}</option>
             {% endfor %}
         </select>
     </form>
 
 
-<div class="mb-4">
+</div>
 
 
-<img src="data:image/png;base64,{{ img }}" alt="Obesity Visualization" />
+<img src="data:image/png;base64,{{ img }}" alt="Conditions Visualization" />
 
 </p>
 
