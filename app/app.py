@@ -115,6 +115,9 @@ def logout():
     return redirect('/')
 
 
+
+
+
 # Load the dataset
 url = 'https://raw.githubusercontent.com/kkettip/datasci_4_web_viz/main/Datasets/PLACES__Local_Data_for_Better_Health__County_Data_2023_release%20%20CT.csv'
 df = pd.read_csv(url)
