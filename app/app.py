@@ -18,7 +18,20 @@ from sqlalchemy import create_engine, inspect
 import sqlalchemy
 
 
-app = Flask(__name__)
+from flask import Flask, render_template, url_for, redirect, session
+from authlib.integrations.flask_client import OAuth
+from authlib.common.security import generate_token
+from dotenv import load_dotenv
+import os
+from db_functions import update_or_create_user
+
+load_dotenv()
+
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
+
+
+#app = Flask(__name__)
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -43,13 +56,72 @@ db_engine = create_engine(conn_string, echo=False)
 
 
 
+app = Flask(__name__)
+app.secret_key = os.urandom(12)
+oauth = OAuth(app)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/google/')
+def google():
+    CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
+    oauth.register(
+        name='google',
+        client_id=GOOGLE_CLIENT_ID,
+        client_secret=GOOGLE_CLIENT_SECRET,
+        server_metadata_url=CONF_URL,
+        client_kwargs={
+            'scope': 'openid email profile'
+        }
+    )
+
+    # Redirect to google_auth function
+    ###note, if running locally on a non-google shell, do not need to override redirect_uri
+    ### and can just use url_for as below
+    redirect_uri = url_for('google_auth', _external=True)
+    print('REDIRECT URL: ', redirect_uri)
+    session['nonce'] = generate_token()
+    ##, note: if running in google shell, need to override redirect_uri 
+    ## to the external web address of the shell, e.g.,
+    #redirect_uri = 'https://5000-cs-531176737229-default.cs-us-east1-pkhd.cloudshell.dev/google/auth/'
+    redirect_uri = 'https://5000-cs-531176737229-default.cs-us-east1-vpcf.cloudshell.dev/google/auth/'
+    
+    
+    return oauth.google.authorize_redirect(redirect_uri, nonce=session['nonce'])
+
+@app.route('/google/auth/')
+def google_auth():
+    token = oauth.google.authorize_access_token()
+    user = oauth.google.parse_id_token(token, nonce=session['nonce'])
+    session['user'] = user
+    update_or_create_user(user)
+    print(" Google User ", user)
+    return redirect('/dashboard')
+
+@app.route('/dashboard/')
+def dashboard():
+    user = session.get('user')
+    if user:
+        return render_template('dashboard.html', user=user)
+    else:
+        return redirect('/')
+
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect('/')
+
+
 # Load the dataset
 url = 'https://raw.githubusercontent.com/kkettip/datasci_4_web_viz/main/Datasets/PLACES__Local_Data_for_Better_Health__County_Data_2023_release%20%20CT.csv'
 df = pd.read_csv(url)
 df_obesity = df[(df['MeasureId'] == 'OBESITY') & (df['Data_Value_Type'] == 'Age-adjusted prevalence')]
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
+@app.route('/obesity', methods=['GET', 'POST'])
+def obesity():
     counties = sorted(df_obesity['LocationName'].unique())
     selected_county = request.form.get('county') or counties[0]
     
@@ -57,7 +129,7 @@ def index():
 
     today = datetime.today().strftime('%Y-%m-%d')
     
-    return render_template("index.html", counties=counties, selected_county=selected_county, img=img, today=today)
+    return render_template("obesity.html", counties=counties, selected_county=selected_county, img=img, today=today)
 
 
 
@@ -157,6 +229,6 @@ def create_condition_plot(condition):
 
 if __name__ == '__main__':
     app.run(
-        debug=True,
-        port=3306
+        debug=True, host='0.0.0.0',
+        port=5000
         )

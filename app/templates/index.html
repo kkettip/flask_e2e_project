@@ -1,57 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Flask Obesity App</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+    <title>Flask app</title>
 </head>
 <body>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<div class="max-w-screen-md mx-auto bg-white p-4 shadow-md">
-    <div class="max-w-screen-md mx-auto bg-pink-500 p-4 shadow-md">
-
-
-<div class="container mx-auto">
-    <h1 class="text-4xl font-bold text-center my-8">Obesity Age-adjusted Prevalence in CT by County</h1>
-    <p class="text-lg text-center font-semibold leading-7 text-black-400 mb-4">Today's Date in Year-Month-Day: {{today}}</p>
-</div>
-
-
-
-
-<div class="container mx-auto">
-<p class="text-lg text-center"> 
-
-    <p class="text-base font-semibold leading-7 text-black-400 mb-4">Select a County to View Prevalence Levels: </p>
-
-<div class="mb-4">
-
-    <form method="post">
-        <select name="county" onchange="this.form.submit()">
-            {% for county in counties %}
-            <option value="{{ county }}" {% if county == selected_county %} selected {% endif %}>{{ county }}</option>
-            {% endfor %}
-        </select>
-    </form>
-
-
-<div class="mb-4">
-
-
-<img src="data:image/png;base64,{{ img }}" alt="Obesity Visualization" />
-
-</p>
-
-
-
-</div>
+    <div>
+        <a href="google/" class="login-btn" style="text-decoration:none;">
+            <img id="google" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2048px-Google_%22G%22_Logo.svg.png"
+        alt="Google"
+        style="width:50px;height:50px;">
+        <div class="btn-text">
+            Login with Google
+        </div>
+        </a> 
+    </div>
 </body>
 </html>
-
-
-</div>
-</div>
-
-

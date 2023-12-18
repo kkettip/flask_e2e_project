@@ -21,3 +21,14 @@ CREATE TABLE patient_conditions (
     FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
     FOREIGN KEY (condition_id) REFERENCES conditions(condition_id)
 );
+
+
+CREATE TABLE patient_info (
+	
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    date_of_birth DATE,
+	
+    condition_name VARCHAR(100) NOT NULL,
+	intake_date DATE NOT NULL
+);

@@ -44,6 +44,7 @@ def google():
     #redirect_uri = 'https://5000-cs-531176737229-default.cs-us-east1-pkhd.cloudshell.dev/google/auth/'
     redirect_uri = 'https://5000-cs-531176737229-default.cs-us-east1-vpcf.cloudshell.dev/google/auth/'
     
+    
     return oauth.google.authorize_redirect(redirect_uri, nonce=session['nonce'])
 
 @app.route('/google/auth/')

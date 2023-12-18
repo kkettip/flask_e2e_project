@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Health App</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="max-w-screen-md mx-auto bg-white p-4 shadow-md">
+    <div class="max-w-screen-md mx-auto bg-pink-500 p-4 shadow-md">
+
+
+<div class="container mx-auto">
+    <h1 class="text-4xl font-bold text-center my-8">{{plot_title}}</h1>
+    <p class="text-lg text-center font-semibold leading-7 text-black-400 mb-4">Today's Date in Year-Month-Day: {{today}}</p>
+</div>
+
+
+
+
+<div class="container mx-auto">
+<p class="text-lg text-center"> 
+
+    <p class="text-base font-semibold leading-7 text-black-400 mb-4">Select a County to View Prevalence Levels: </p>
+
+<div class="mb-4">
+
+    <form method="post">
+        <select name="filter_value" onchange="this.form.submit()">
+            {% for filter_value in filter_values %}
+            <option value="{{ filter_value }}" {% if county == selected_filter_value %} selected {% endif %}>{{ filter_value }}</option>
+            {% endfor %}
+        </select>
+    </form>
+
+
+</div>
+
+
+<img src="data:image/png;base64,{{ img }}" alt="Plot Visualization" />
+
+</p>
+
+
+
+</div>
+</body>
+</html>
+
+
+</div>
+</div>
+
+

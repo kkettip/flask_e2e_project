@@ -54,6 +54,23 @@ def insert_fake_data(engine, num_patients=100, num_conditions=20, num_patient_co
             intake_date = fake.date_between(start_date="-5y", end_date="today")
             connection.execute(f"""INSERT INTO patient_conditions (patient_id, condition_id, intake_date) VALUES ({patient_id}, {condition_id}, '{intake_date}')""") # Noqa: E501
 
+
+        # Insert fake data into patient_info
+        for _ in range(num_patient_info):
+            patient_id = random.choice(patient_ids)
+            first_name = fake.first_name()
+            last_name = fake.last_name()
+            date_of_birth = fake.date_of_birth(minimum_age=10, maximum_age=90)
+            condition_id = random.choice(condition_ids)
+            #condition_name = random.choice(condition_name)
+            intake_date = fake.date_between(start_date="-5y", end_date="today")
+            connection.execute(f"""INSERT INTO patient_info (patient_id, first_name, last_name, date_of_birth, condition_id, condition_name, intake_date) VALUES ({patient_id}, '{first_name}', '{last_name}', '{date_of_birth}', {condition_id}, '{condition}', '{intake_date}')""") # Noqa: E501
+
+
+
+
+
+
 if __name__ == "__main__":
     insert_fake_data(db_engine)
     print("Fake data insertion complete!")
