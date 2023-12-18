@@ -29,7 +29,7 @@ from db_functions import update_or_create_user
 import logging
 
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.ERROR,
     filename="/home/kettip_kriangchaivech/flask_e2e_project/logs/logger_output.logs",
     filemode="w",
     format='%(levelname)s - %(name)s - %(message)s'
@@ -194,51 +194,62 @@ def patients_information():
 
 @app.route('/conditions', methods=['GET', 'POST'])
 def conditions():
-    query_patients = "SELECT * FROM patients limit 10"
-    df_patients = read_sql(query_patients, db_engine)
-    patients = df_patients.to_dict(orient='records')
-   
-
-    query_conditions = "SELECT * FROM conditions limit 10"
-    df_conditions = read_sql(query_conditions, db_engine)
-    conditions = df_conditions.to_dict(orient='records')
-
-    query_patient_conditions = "SELECT * FROM patient_conditions limit 10"
-    df_patient_conditions= read_sql(query_patient_conditions, db_engine)
-    patient_conditions = df_patient_conditions.to_dict(orient='records')
+    if not session.get('user'): 
+        return redirect('/')
+    q = """SELECT DISTINCT(condition_name) as condition_name FROM conditions"""
+    df = pd.read_sql(q, db_engine)
+    conditions = sorted(df['condition_name'].unique())
+    selected_condition = request.form.get('filter_value') or conditions[0]
     
-
-
-    conditions = sorted(df_patient_conditions['condition_id'].unique())
-    selected_condition = request.form.get('condition') or condition_id[0]
-    
-    img2 = create_plot(selected_condition)
+    img = create_condition_plot(selected_condition)
 
     today = datetime.today().strftime('%Y-%m-%d')
     
-    return render_template("conditions.html", conditions=conditions, selected_condition=selected_condition, img2=img2, today=today)
+    return render_template(
+        "plot_display.html", 
+        plot_title="Percentage of Patients with Condition",
+        filter_values=conditions, 
+        selected_filter_value=selected_condition, 
+        img=img, 
+        today=today
+    )
 
-
-
-    
 
 def create_condition_plot(condition):
-    overall_count = df_patient_conditions['condition_id'].count()
-    selected_condition_count = df_patient_conditions[df_patient_conditions['condition_id'] == condition]['condition_id'].count()
+    q = """
+SELECT 
+condition_name, 
+COUNT(DISTINCT patient_id) AS num_patients
+FROM conditions 
+JOIN patient_conditions 
+USING (condition_id)
+GROUP BY condition_name
+ORDER BY 2 DESC
+"""
+    df = pd.read_sql(q, db_engine)
+    conditions = df.values
 
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.bar(['condition', 'count'], [selected_condition_count, overall_count], color=['lightcoral', 'dodgerblue'])
-    ax.axhline(selected_condition_count, color='gray', linestyle='dashed', alpha=0.7)
-    ax.set_ylabel('Conditions Count')
-    ax.set_ylim(0, 50)
-    ax.set_title('Conditions Prevelance')
-    
+    # Define the data for the pie chart
+    data = [x[1] for x in conditions]
+    labels = [x[0] for x in conditions]
+    explode = [0.1 if x==condition else 0 for x in labels]
+
+    # Create a figure and an axes object
+    fig, ax = plt.subplots()
+
+    # Plot the pie chart with the data and parameters
+    ax.pie(data, labels=labels, explode=explode, shadow=True, startangle=90, autopct="%1.1f%%")
+
+    # Show the pie chart
+    plt.show()
     # Convert plot to PNG image
-    img2 = io.BytesIO()
-    plt.savefig(img2, format='png')
-    img2.seek(0)
+    img = io.BytesIO()
+    plt.savefig(img, format='png')
+    img.seek(0)
     
-    return base64.b64encode(img2.getvalue()).decode()
+    return base64.b64encode(img.getvalue()).decode()
+
+
 
 
 if __name__ == '__main__':
