@@ -25,6 +25,17 @@ from dotenv import load_dotenv
 import os
 from db_functions import update_or_create_user
 
+
+import logging
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    filename="/home/kettip_kriangchaivech/flask_e2e_project/logs/logger_output.logs",
+    filemode="w",
+    format='%(levelname)s - %(name)s - %(message)s'
+)
+
+
 load_dotenv()
 
 GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
