@@ -80,11 +80,20 @@ In terminal input :
 
 ## .ENV format
 
+## MySQL DB
 1. DB_HOST = os.getenv("DB_HOST") =>IP address
 2. DB_DATABASE = os.getenv("DB_DATABASE") => Name of Database
 3. DB_USERNAME = os.getenv("DB_USERNAME") => root (for GCP)
 4. DB_PASSWORD = os.getenv("DB_PASSWORD") => PW (for root user)
 5. DB_PORT = int(os.getenv("DB_PORT", 3306))
 6. DB_CHARSET = os.getenv("DB_CHARSET", "utf8mb4")
+
+## Oauth
+1. GOOGLE_CLIENT_ID= ********
+2. GOOGLE_CLIENT_SECRET= *********
+
+
+
+
 
 
