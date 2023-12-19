@@ -3,6 +3,20 @@
 
 Patients’ Information Display Flask App
 
+## Tools Used:
+1. Github (Version Control)
+2. Flask (Python; Frotend & Backend)
+3. MySQL (Database via GCP)
+4. SQLAlchemy (ORM)
+5. .ENV (Environment Variables)
+6. Tailwind (Frontend Styling)
+7. Authorization (Google OAuth)
+8. API Service (Flask Backend)
+9. Logger (Debugging & Logging)
+10. Docker (Containerization)
+11. GCP (Deployment)
+
+
 ## Steps to use the app:
 
 1. Login with a google account
