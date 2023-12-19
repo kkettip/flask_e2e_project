@@ -86,7 +86,7 @@ MySQL instance is used to store data for retrieval
 10. Select Create the instance
 
 
-## .ENV format 
+## .ENV formats below: 
 
 To store secret information like passwords without exposing it for others to see in code.
 
