@@ -52,6 +52,8 @@ Patients’ Information Display Flask App
 
 ## Steps to deploy app to the cloud:
 
+Used GCP App Engine for Web Deployment
+
 First add app.yaml then:
 
 In terminal input :
@@ -63,5 +65,26 @@ In terminal input :
 6. enter authorization code
 7. gcloud app deploy app.yaml
 8. Web link will be provided
+
+## MySQL GCP Instance Setup and Configuration
+1. Log into GCP account
+2. Select SQL
+3. Select Create an instance
+4. Select MySQL
+5. Provide information for Instance
+6. Adjust settings
+7. In Cloud SQL Edition Section: Select Enterprise and Select Sandbox
+8. In Machine configuration Select Shared core
+9. In Connections select Public IP and add network 0.0.0.0/0
+10. Select Create the instance
+
+## .ENV format
+
+1. DB_HOST = os.getenv("DB_HOST") =>IP address
+2. DB_DATABASE = os.getenv("DB_DATABASE") => Name of Database
+3. DB_USERNAME = os.getenv("DB_USERNAME") => root (for GCP)
+4. DB_PASSWORD = os.getenv("DB_PASSWORD") => PW (for root user)
+5. DB_PORT = int(os.getenv("DB_PORT", 3306))
+6. DB_CHARSET = os.getenv("DB_CHARSET", "utf8mb4")
 
 
