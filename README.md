@@ -19,3 +19,11 @@ Patients’ Information Display Flask App
 5. Go to link to access app
 
 
+## To run the app with Docker:
+1. Ensure there is a dockerfile
+2. In cloudshell terminal enter the following code:
+3. Build docker image with `docker build -t <name of image> . `
+4. Run image with `docker run -d -p 5001:5000 <name of image>`
+
+
+
