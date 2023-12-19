@@ -67,6 +67,9 @@ In terminal input :
 8. Web link will be provided
 
 ## MySQL GCP Instance Setup and Configuration
+
+MySQL instance is used to store data for retrieval 
+
 1. Log into GCP account
 2. Select SQL
 3. Select Create an instance
@@ -78,7 +81,9 @@ In terminal input :
 9. In Connections select Public IP and add network 0.0.0.0/0
 10. Select Create the instance
 
-## .ENV format
+## .ENV format 
+
+To store secret information like passwords without exposing it for others to see in code.
 
 ## MySQL DB
 1. DB_HOST = os.getenv("DB_HOST") =>IP address
@@ -89,6 +94,9 @@ In terminal input :
 6. DB_CHARSET = os.getenv("DB_CHARSET", "utf8mb4")
 
 ## Oauth
+
+For user authentication when signing in to webapps
+
 1. GOOGLE_CLIENT_ID= ********
 2. GOOGLE_CLIENT_SECRET= *********
 
