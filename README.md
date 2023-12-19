@@ -17,14 +17,16 @@ Patients’ Information Display Flask App
 11. GCP (Deployment)
 
 
-## Steps to use the app:
+## Description and Steps to use the app:
 (see images in Docs folder)
 
 1. Login with a google account
 2. Arrive at dashboard containing user profile, links to webpages and a logout link 3
 3. Select Patients Information page link or Patient Conditions page link
 4. Patients Information page displays 3 tables: patients, conditions, patient_conditions.
-5. Patient Conditions page displays a pie chart showing the percentage of patients with certain conditions. There is an option to select a specific condition to see a cutout slice of the pie.
+5. Patient Conditions page displays a pie chart showing the percentage of patients with certain conditions.
+6. There is an option to select a specific condition to see a cutout slice of the pie.
+7. faker is used to generate fake patients' data
 
 ## To run the app locally without Docker:
 1. Use google cloud shell terminal
@@ -80,6 +82,7 @@ MySQL instance is used to store data for retrieval
 8. In Machine configuration Select Shared core
 9. In Connections select Public IP and add network 0.0.0.0/0
 10. Select Create the instance
+
 
 ## .ENV format 
 
