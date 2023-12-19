@@ -18,6 +18,7 @@ Patients’ Information Display Flask App
 
 
 ## Steps to use the app:
+(see images in Docs folder)
 
 1. Login with a google account
 2. Arrive at dashboard containing user profile, links to webpages and a logout link 3
@@ -47,5 +48,20 @@ Patients’ Information Display Flask App
 5. To stop the container: docker stop <container id from list displayed by docker ps command>
 6. To remove a container: docker rm <container-id>
 7. To delete all containers: docker system prune -a -f 
+
+
+## Steps to deploy app to the cloud:
+
+First add app.yaml then:
+
+In terminal input :
+1. gcloud config set project <project ID>
+2. gcloud auth login
+3. go to browser link
+4. allow cloud SDK to access google account
+5. copy authorization code
+6. enter authorization code
+7. gcloud app deploy app.yaml
+8. Web link will be provided
 
 
