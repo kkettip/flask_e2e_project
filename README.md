@@ -26,12 +26,12 @@ Patients’ Information Display Flask App
 4. Run image with `docker run -d -p 5001:5000 <name of image>`
 
 ## Docker Commands
-# To build docker image: docker build -t <name of image> . name of image: flaskapp1
-# To list the images: docker images
-# To run image: docker run -d -p 5001:5000 <name of image> (docker run -p <host-port>:<container-port> <image-name>)
-# To get container ID and to see the containers that are running: docker ps
-# To stop the container: docker stop <container id from list displayed by docker ps command>
-# To remove a container: docker rm <container-id>
-# To delete all containers: docker system prune -a -f 
+1. To build docker image: docker build -t <name of image> . name of image: flaskapp1
+2. To list the images: docker images
+3. To run image: docker run -d -p 5001:5000 <name of image> (docker run -p <host-port>:<container-port> <image-name>)
+4. To get container ID and to see the containers that are running: docker ps
+5. To stop the container: docker stop <container id from list displayed by docker ps command>
+6. To remove a container: docker rm <container-id>
+7. To delete all containers: docker system prune -a -f 
 
 
